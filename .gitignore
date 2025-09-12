@@ -16,6 +16,9 @@ ENV/
 # Static files (collected)
 /staticfiles/
 
+# Claude Code settings
+.claude/
+
 # IDE
 .vscode/
 .idea/
