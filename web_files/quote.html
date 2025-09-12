@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Einstein Quote</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Albert Einstein Quotes</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html">Random Quote</a></li>
+            <li><a href="quote.html">Another Quote</a></li>
+            <li><a href="show_all.html">All Quotes</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <div class="quote-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Einstein_1921_portrait2.jpg/256px-Einstein_1921_portrait2.jpg" 
+                 alt="Albert Einstein" class="person-image">
+            <div class="quote">"Try not to become a person of success, but rather try to become a person of value."</div>
+            <p><strong>- Albert Einstein</strong></p>
+            <button class="refresh-btn" onclick="showRandomQuote()">Get Another Quote</button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 Einstein Quotes App</p>
+    </footer>
+
+    <script>
+        const quotes = [
+            "Imagination is more important than knowledge.",
+            "Try not to become a person of success, but rather try to become a person of value.",
+            "Life is like riding a bicycle. To keep your balance, you must keep moving."
+        ];
+
+        const images = [
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Albert_Einstein_Head.jpg/256px-Albert_Einstein_Head.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Einstein_1921_portrait2.jpg/256px-Einstein_1921_portrait2.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Einstein_1921_by_F_Schmutzer_-_restoration.jpg/256px-Einstein_1921_by_F_Schmutzer_-_restoration.jpg"
+        ];
+
+        function showRandomQuote() {
+            const randomQuoteIndex = Math.floor(Math.random() * quotes.length);
+            const randomImageIndex = Math.floor(Math.random() * images.length);
+            
+            document.querySelector('.quote').textContent = `"${quotes[randomQuoteIndex]}"`;
+            document.querySelector('.person-image').src = images[randomImageIndex];
+        }
+    </script>
+</body>
+</html>
