@@ -1,0 +1,12 @@
+{% extends 'quotes/base.html' %}
+
+{% block title %}Random Einstein Quote{% endblock %}
+
+{% block content %}
+<div class="quote-container">
+    <img src="{{ image }}" alt="Albert Einstein" class="person-image">
+    <div class="quote">"{{ quote }}"</div>
+    <p><strong>- Albert Einstein</strong></p>
+    <a href="{% url 'quote' %}" style="background-color: #3498db; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 1rem;">Get Another Quote</a>
+</div>
+{% endblock %}

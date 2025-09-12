@@ -1,0 +1,28 @@
+{% extends 'quotes/base.html' %}
+
+{% block title %}All Einstein Quotes{% endblock %}
+
+{% block content %}
+<h2 style="text-align: center; color: #2c3e50; margin-bottom: 2rem;">All Einstein Quotes</h2>
+
+<div style="margin-bottom: 3rem;">
+    <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 0.5rem;">Quotes</h3>
+    {% for quote in quotes %}
+    <div class="quote-container" style="margin: 1rem 0;">
+        <div class="quote">"{{ quote }}"</div>
+        <p><strong>- Albert Einstein</strong></p>
+    </div>
+    {% endfor %}
+</div>
+
+<div>
+    <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 0.5rem;">Images</h3>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;">
+        {% for image in images %}
+        <div style="text-align: center;">
+            <img src="{{ image }}" alt="Albert Einstein" style="max-width: 150px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

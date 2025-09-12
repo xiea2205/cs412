@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Einstein Quotes{% endblock %}</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        
+        nav {
+            background-color: #34495e;
+            padding: 0.5rem 0;
+        }
+        
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        nav li {
+            margin: 0 1rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        nav a:hover {
+            background-color: #2c3e50;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .quote-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin: 1rem 0;
+            color: #2c3e50;
+        }
+        
+        .person-image {
+            max-width: 200px;
+            border-radius: 50%;
+            margin: 1rem 0;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 2rem;
+            background-color: #34495e;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Albert Einstein Quotes</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="{% url 'quote' %}">Random Quote</a></li>
+            <li><a href="{% url 'show_all' %}">All Quotes</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 Einstein Quotes App</p>
+    </footer>
+</body>
+</html>
