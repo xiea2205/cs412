@@ -1,0 +1,51 @@
+{% extends 'restaurant/base.html' %}
+
+{% block title %}Bella Vista Restaurant - Main{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Welcome to Bella Vista Restaurant</h1>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+        <div>
+            <h2>About Us</h2>
+            <p>Established in 1985, Bella Vista Restaurant brings you the finest Italian-American cuisine in a warm, family-friendly atmosphere. Our chefs use only the freshest ingredients and traditional recipes passed down through generations.</p>
+            
+            <h2>Location</h2>
+            <p><strong>Address:</strong> 123 Main Street, Boston, MA 02215</p>
+            <p><strong>Phone:</strong> (617) 555-0123</p>
+            <p><strong>Email:</strong> info@bellavista.com</p>
+            
+            <h2>Hours of Operation</h2>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                <tr>
+                    <td style="padding: 0.5rem; border-bottom: 1px solid #ddd;"><strong>Monday - Thursday</strong></td>
+                    <td style="padding: 0.5rem; border-bottom: 1px solid #ddd;">11:00 AM - 10:00 PM</td>
+                </tr>
+                <tr>
+                    <td style="padding: 0.5rem; border-bottom: 1px solid #ddd;"><strong>Friday - Saturday</strong></td>
+                    <td style="padding: 0.5rem; border-bottom: 1px solid #ddd;">11:00 AM - 11:00 PM</td>
+                </tr>
+                <tr>
+                    <td style="padding: 0.5rem; border-bottom: 1px solid #ddd;"><strong>Sunday</strong></td>
+                    <td style="padding: 0.5rem; border-bottom: 1px solid #ddd;">12:00 PM - 9:00 PM</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div>
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                 alt="Restaurant Interior" 
+                 style="width: 100%; height: 300px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+            
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                 alt="Delicious Food" 
+                 style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;">
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 2rem;">
+        <a href="{% url 'order' %}" class="btn" style="font-size: 1.2rem; padding: 15px 30px;">Order Online Now</a>
+    </div>
+</div>
+{% endblock %}
