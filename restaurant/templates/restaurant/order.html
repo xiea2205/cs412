@@ -1,0 +1,101 @@
+{% extends 'restaurant/base.html' %}
+
+{% block title %}Bella Vista Restaurant - Order Online{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Order Online</h1>
+    <p>Place your order below and we'll have it ready for pickup!</p>
+    
+    <form method="post" action="{% url 'confirmation' %}">
+        {% csrf_token %}
+        
+        <h2>Menu Items</h2>
+        
+        <div class="form-group">
+            <div class="checkbox-group">
+                <input type="checkbox" id="burger" name="burger" value="burger">
+                <label for="burger">Classic Burger - <span class="price">$12.99</span></label>
+            </div>
+            <p style="margin-left: 30px; color: #666; font-size: 0.9rem;">Beef patty, lettuce, tomato, onion, pickle, special sauce. Add bacon (+$2) or cheese (+$1)</p>
+        </div>
+        
+        <div class="form-group">
+            <div class="checkbox-group">
+                <input type="checkbox" id="pizza" name="pizza" value="pizza">
+                <label for="pizza">Margherita Pizza - <span class="price">$16.99</span></label>
+            </div>
+            <p style="margin-left: 30px; color: #666; font-size: 0.9rem;">Fresh mozzarella, basil, tomato sauce. Add pepperoni (+$3) or mushrooms (+$2)</p>
+        </div>
+        
+        <div class="form-group">
+            <div class="checkbox-group">
+                <input type="checkbox" id="salad" name="salad" value="salad">
+                <label for="salad">Caesar Salad - <span class="price">$10.99</span></label>
+            </div>
+            <p style="margin-left: 30px; color: #666; font-size: 0.9rem;">Romaine lettuce, parmesan, croutons, caesar dressing. Add grilled chicken (+$4)</p>
+        </div>
+        
+        <div class="form-group">
+            <div class="checkbox-group">
+                <input type="checkbox" id="pasta" name="pasta" value="pasta">
+                <label for="pasta">Spaghetti Carbonara - <span class="price">$14.99</span></label>
+            </div>
+            <p style="margin-left: 30px; color: #666; font-size: 0.9rem;">Creamy sauce with pancetta, egg, and parmesan. Extra pancetta (+$3)</p>
+        </div>
+        
+        <h2>Today's Special</h2>
+        <div class="form-group" style="background: #fff8dc; padding: 1rem; border-radius: 5px; border-left: 4px solid #D2691E;">
+            <div class="checkbox-group">
+                <input type="checkbox" id="daily_special" name="daily_special" value="daily_special">
+                <label for="daily_special">{{ daily_special.name }} - <span class="price">${{ daily_special.price }}</span></label>
+            </div>
+            <p style="margin-left: 30px; color: #666; font-size: 0.9rem;">{{ daily_special.description }}</p>
+            <input type="hidden" name="special_name" value="{{ daily_special.name }}">
+            <input type="hidden" name="special_price" value="{{ daily_special.price }}">
+        </div>
+        
+        <h2>Customer Information</h2>
+        
+        <div class="form-group">
+            <label for="customer_name">Full Name *</label>
+            <input type="text" id="customer_name" name="customer_name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="customer_phone">Phone Number *</label>
+            <input type="tel" id="customer_phone" name="customer_phone" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="customer_email">Email Address *</label>
+            <input type="email" id="customer_email" name="customer_email" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="special_instructions">Special Instructions</label>
+            <textarea id="special_instructions" name="special_instructions" placeholder="Any allergies, special requests, or cooking preferences..."></textarea>
+        </div>
+        
+        <div style="text-align: center; margin-top: 2rem;">
+            <button type="submit" class="btn" style="font-size: 1.2rem; padding: 15px 30px;">Place Order</button>
+        </div>
+    </form>
+</div>
+
+<script>
+// Simple JavaScript to provide visual feedback on item selection
+document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        const parent = this.closest('.form-group');
+        if (this.checked) {
+            parent.style.backgroundColor = '#f0f8ff';
+            parent.style.border = '2px solid #D2691E';
+        } else {
+            parent.style.backgroundColor = '';
+            parent.style.border = '';
+        }
+    });
+});
+</script>
+{% endblock %}
