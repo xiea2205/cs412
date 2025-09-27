@@ -1,0 +1,38 @@
+# Database Deployment Solution
+
+## Option 1: Copy Local Database to Server
+
+# 1. On your LOCAL machine, ensure database is ready:
+pipenv run python manage.py migrate
+pipenv run python manage.py create_sample_profiles
+
+# 2. Copy db.sqlite3 to server (run this from your local machine):
+scp db.sqlite3 xiea@csa2.bu.edu:webapps/django/
+
+# Alternative: Use git to include the database
+git add db.sqlite3
+git commit -m "Add database with mini_insta tables and sample data"
+git push origin main
+
+# Then on server:
+git pull
+
+## Option 2: Contact BU IT Support
+# Email: cs-help@bu.edu
+# Subject: Django manage.py commands not working on cs-webapps.bu.edu
+# Include the error message about Django module not found
+
+## Option 3: Try These Server Commands
+# (Copy and paste these on the server)
+
+# Check for environment modules
+module list
+module avail
+
+# Try to load Python/Django environment
+module load python
+python3 manage.py migrate
+
+# Check for different Python installations
+ls /usr/local/bin/python*
+ls /opt/*/bin/python*
