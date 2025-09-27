@@ -1,0 +1,82 @@
+<!--
+File: base.html
+Author: Anthony Xie
+Email: xiea@bu.edu
+Description: Base template for the Mini Insta application.
+Provides common layout, styling, and navigation for all pages.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mini Insta{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #3897f0;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav {
+            background-color: #1e88e5;
+            padding: 0.5rem;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        nav a:hover {
+            background-color: #1565c0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        footer {
+            background-color: #424242;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+        footer a {
+            color: #81c784;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mini Insta</h1>
+        <p>A Social Media Experience</p>
+    </header>
+
+    <nav>
+        <a href="{% url 'show_all_profiles' %}">All Profiles</a>
+        <a href="/admin">Admin</a>
+    </nav>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Mini Insta.
+        <a href="{% url 'show_all_profiles' %}">Back to All Profiles</a>
+        </p>
+    </footer>
+</body>
+</html>

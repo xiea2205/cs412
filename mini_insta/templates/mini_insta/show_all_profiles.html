@@ -1,0 +1,51 @@
+<!--
+File: show_all_profiles.html
+Author: Anthony Xie
+Email: xiea@bu.edu
+Description: Template to display all user profiles in a grid layout.
+Shows profile images, names, usernames, bios, and join dates with links to individual profiles.
+-->
+{% extends 'mini_insta/base.html' %}
+
+{% block title %}All Profiles - Mini Insta{% endblock %}
+
+{% block content %}
+<h2>All Profiles</h2>
+
+{# Check if any profiles exist to display #}
+{% if profiles %}
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+        {# Loop through each profile to display in grid #}
+        {% for profile in profiles %}
+            <div style="background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 1.5rem; text-align: center;">
+                <a href="{% url 'show_profile' profile.pk %}" style="text-decoration: none; color: inherit;">
+                    <img src="{{ profile.profile_image_url }}"
+                         alt="{{ profile.username }}"
+                         style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; margin-bottom: 1rem; border: 3px solid #3897f0;">
+
+                    <h3 style="margin: 0.5rem 0; color: #333;">{{ profile.display_name }}</h3>
+                    <p style="color: #666; margin: 0.5rem 0; font-weight: bold;">@{{ profile.username }}</p>
+
+                    {# Display bio text if it exists #}
+                    {% if profile.bio_text %}
+                        <p style="color: #888; font-size: 0.9rem; margin: 1rem 0; line-height: 1.4;">
+                            {{ profile.bio_text|truncatewords:15 }}
+                        </p>
+                    {% endif %}
+
+                    <p style="color: #999; font-size: 0.8rem; margin-top: 1rem;">
+                        Joined {{ profile.join_date|date:"M d, Y" }}
+                    </p>
+                </a>
+            </div>
+        {# End of profile loop #}
+        {% endfor %}
+    </div>
+{# If no profiles exist, show message with link to admin #}
+{% else %}
+    <div style="text-align: center; padding: 3rem; background: white; border-radius: 8px; margin-top: 2rem;">
+        <h3>No profiles found</h3>
+        <p>No profiles have been created yet. <a href="/admin">Create some profiles</a> to get started!</p>
+    </div>
+{% endif %}
+{% endblock %}
