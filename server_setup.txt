@@ -1,0 +1,31 @@
+# Server Setup Commands for Mini Insta
+# Run these commands on csa2.bu.edu after SSH'ing
+
+# 1. Navigate to the correct directory
+cd webapps/django
+
+# 2. Verify you're in the right place (should show /home/ugrad/xiea/webapps/django)
+pwd
+
+# 3. Check git status
+git status
+
+# 4. Pull latest changes if needed
+git pull
+
+# 5. MOST IMPORTANT: Run migrations to create database tables
+python manage.py migrate
+
+# 6. Create sample data
+python manage.py create_sample_profiles
+
+# 7. Verify the database has the table (should show mini_insta_profile)
+python manage.py dbshell
+.tables
+.quit
+
+# 8. Test that profiles were created (should show 5)
+python manage.py shell -c "from mini_insta.models import Profile; print(f'Profiles in database: {Profile.objects.count()}')"
+
+# After these commands, wait ~5 minutes for Apache restart, then test:
+# https://cs-webapps.bu.edu/xiea/mini_insta/
