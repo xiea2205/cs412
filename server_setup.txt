@@ -16,18 +16,21 @@ git pull
 # 5. MOST IMPORTANT: Run migrations to create database tables
 python manage.py migrate
 
-# 6. Collect static files for admin styling (CSS, JS, images)
-python manage.py collectstatic --noinput
+# 6. Set production environment variable for correct static file paths
+export DJANGO_ENV=production
 
-# 7. Create sample data
+# 7. Collect static files for admin styling (CSS, JS, images)
+DJANGO_ENV=production python manage.py collectstatic --noinput
+
+# 8. Create sample data
 python manage.py create_sample_profiles
 
-# 8. Verify the database has the table (should show mini_insta_profile)
+# 9. Verify the database has the table (should show mini_insta_profile)
 python manage.py dbshell
 .tables
 .quit
 
-# 9. Test that profiles were created (should show 5)
+# 10. Test that profiles were created (should show 5)
 python manage.py shell -c "from mini_insta.models import Profile; print(f'Profiles in database: {Profile.objects.count()}')"
 
 # After these commands, wait ~5 minutes for Apache restart, then test:
