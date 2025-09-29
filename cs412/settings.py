@@ -117,8 +117,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/xiea/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# For local development, serve static files through Django
+if DEBUG:
+    from django.conf.urls.static import static
+    # This will be handled in urls.py
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
