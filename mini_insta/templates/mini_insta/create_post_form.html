@@ -1,0 +1,94 @@
+<!--
+File: create_post_form.html
+Author: Anthony Xie
+Email: xiea@bu.edu
+Description: Template for creating a new post.
+Provides form for selecting profile, adding caption, and uploading photos.
+-->
+{% extends 'mini_insta/base.html' %}
+
+{% block title %}Create New Post - Mini Insta{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); overflow: hidden;">
+
+    <div style="padding: 2rem;">
+        <h2 style="color: #333; margin-bottom: 1.5rem; text-align: center;">Create New Post</h2>
+
+        <form method="post" id="post-form">
+            {% csrf_token %}
+
+            <!-- Profile Selection -->
+            <div style="margin-bottom: 1.5rem;">
+                <label for="id_profile" style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: bold;">
+                    Select Profile:
+                </label>
+                {{ form.profile }}
+            </div>
+
+            <!-- Caption -->
+            <div style="margin-bottom: 1.5rem;">
+                <label for="id_caption" style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: bold;">
+                    Caption:
+                </label>
+                {{ form.caption }}
+            </div>
+
+            <!-- Image URLs -->
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: bold;">
+                    Image URLs:
+                </label>
+                <div id="image-urls-container">
+                    <input type="url" name="image_url" placeholder="Enter image URL"
+                           style="width: 100%; padding: 0.5rem; margin-bottom: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+                <button type="button" id="add-url-btn"
+                        style="background: #3897f0; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.9rem;">
+                    + Add Another Image URL
+                </button>
+            </div>
+
+            <!-- Submit Button -->
+            <div style="text-align: center; margin-top: 2rem;">
+                <button type="submit"
+                        style="background: #3897f0; color: white; border: none; padding: 0.75rem 2rem; border-radius: 4px; cursor: pointer; font-size: 1rem; font-weight: bold;">
+                    Create Post
+                </button>
+                <a href="{% url 'show_all_profiles' %}"
+                   style="display: inline-block; margin-left: 1rem; padding: 0.75rem 2rem; color: #666; text-decoration: none;">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.getElementById('add-url-btn').addEventListener('click', function() {
+    const container = document.getElementById('image-urls-container');
+    const newInput = document.createElement('input');
+    newInput.type = 'url';
+    newInput.name = 'image_url';
+    newInput.placeholder = 'Enter image URL';
+    newInput.style.cssText = 'width: 100%; padding: 0.5rem; margin-bottom: 0.5rem; border: 1px solid #ddd; border-radius: 4px;';
+    container.appendChild(newInput);
+});
+</script>
+
+<style>
+    /* Style the form fields */
+    #id_profile, #id_caption {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+
+    #id_caption {
+        min-height: 100px;
+        resize: vertical;
+    }
+</style>
+{% endblock %}

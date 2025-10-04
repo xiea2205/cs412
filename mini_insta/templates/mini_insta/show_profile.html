@@ -57,10 +57,33 @@ Shows profile information, bio, stats, and placeholder for posts.
             </p>
         </div>
 
-        <!-- Posts Section Placeholder -->
-        <div style="margin-top: 2rem; padding: 2rem; background: #f8f9fa; border-radius: 8px; text-align: center;">
-            <h3 style="color: #666; margin-bottom: 1rem;">Posts</h3>
-            <p style="color: #999; margin: 0;">No posts yet. Posts will appear here in future updates!</p>
+        <!-- Posts Section -->
+        <div style="margin-top: 2rem;">
+            <h3 style="color: #333; margin-bottom: 1rem;">Posts</h3>
+            {% if profile.get_posts %}
+                {% for post in profile.get_posts %}
+                    <div style="margin-bottom: 2rem; padding: 1rem; border: 1px solid #eee; border-radius: 8px;">
+                        <div style="margin-bottom: 0.5rem;">
+                            <strong>{{ profile.username }}</strong>
+                            <span style="color: #999; font-size: 0.9rem;">{{ post.timestamp|date:"F d, Y g:i A" }}</span>
+                        </div>
+
+                        {% for photo in post.get_photos %}
+                            <div style="margin: 1rem 0;">
+                                <img src="{{ photo.image_url }}" alt="Post photo" style="width: 100%; border-radius: 4px;">
+                            </div>
+                        {% endfor %}
+
+                        {% if post.caption %}
+                            <p style="margin: 0.5rem 0; color: #333;">{{ post.caption }}</p>
+                        {% endif %}
+
+                        <a href="{% url 'post_detail' post.pk %}" style="color: #3897f0; text-decoration: none; font-size: 0.9rem;">View details</a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="color: #999; text-align: center;">No posts yet.</p>
+            {% endif %}
         </div>
     </div>
 </div>
