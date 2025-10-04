@@ -1,0 +1,51 @@
+<!--
+File: post_detail.html
+Author: Anthony Xie
+Email: xiea@bu.edu
+Description: Template to display detailed view of a single post.
+Shows the post's photos, caption, timestamp, and profile information.
+-->
+{% extends 'mini_insta/base.html' %}
+
+{% block title %}Post by {{ post.profile.username }} - Mini Insta{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); overflow: hidden;">
+
+    <!-- Post Header -->
+    <div style="display: flex; align-items: center; padding: 1rem; border-bottom: 1px solid #eee;">
+        <img src="{{ post.profile.profile_image_url }}"
+             alt="{{ post.profile.username }}"
+             style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; margin-right: 1rem;">
+        <div>
+            <a href="{% url 'profile' post.profile.pk %}" style="color: #333; text-decoration: none; font-weight: bold;">
+                {{ post.profile.username }}
+            </a>
+            <div style="color: #999; font-size: 0.85rem;">{{ post.timestamp|date:"F d, Y g:i A" }}</div>
+        </div>
+    </div>
+
+    <!-- Post Photos -->
+    {% for photo in post.get_photos %}
+        <div style="margin: 0;">
+            <img src="{{ photo.image_url }}" alt="Post photo" style="width: 100%; display: block;">
+        </div>
+    {% endfor %}
+
+    <!-- Post Content -->
+    <div style="padding: 1rem;">
+        {% if post.caption %}
+            <p style="margin: 0; color: #333; line-height: 1.6;">
+                <strong>{{ post.profile.username }}</strong> {{ post.caption }}
+            </p>
+        {% endif %}
+    </div>
+
+    <!-- Back Link -->
+    <div style="padding: 1rem; border-top: 1px solid #eee;">
+        <a href="{% url 'profile' post.profile.pk %}" style="color: #3897f0; text-decoration: none;">
+            &larr; Back to {{ post.profile.username }}'s profile
+        </a>
+    </div>
+</div>
+{% endblock %}
