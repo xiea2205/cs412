@@ -66,7 +66,7 @@ Provides common layout, styling, and navigation for all pages.
     <nav>
         <a href="{% url 'show_all_profiles' %}">All Profiles</a>
         <a href="{% url 'create_post' %}">Create Post</a>
-        <a href="/admin">Admin</a>
+        <a href="{% url 'admin:index' %}">Admin</a>
     </nav>
 
     <div class="container">

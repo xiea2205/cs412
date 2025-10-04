@@ -117,7 +117,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+# Configure static URL based on environment
+import os
+if os.environ.get('DJANGO_ENV') == 'production':
+    # Production deployment on BU CS servers
+    STATIC_URL = '/xiea/static/'
+else:
+    # Local development
+    STATIC_URL = '/static/'
+
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type

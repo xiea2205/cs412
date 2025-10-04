@@ -1,0 +1,23 @@
+#!/bin/bash
+# Mini Insta Deployment Commands for csa2.bu.edu
+# Copy and paste these commands one by one after SSH'ing to the server
+
+# Navigate to the correct directory
+cd webapps/django
+
+# Configure git pull strategy
+git config pull.rebase false
+
+# Check status and clean any local changes
+git status
+git checkout .
+
+# Pull the latest changes
+git pull
+
+# If the pull still fails with divergent branches, run these instead:
+# git fetch origin
+# git reset --hard origin/main
+
+echo "Deployment complete! Wait 5 minutes for Apache restart, then check:"
+echo "https://cs-webapps.bu.edu/xiea/cs412/mini_insta/"

@@ -1,0 +1,44 @@
+# BU cs-webapps Django Deployment Troubleshooting
+
+## Current Issue: Django not found in server Python environment
+
+## Try These Commands (in order):
+
+# 1. Check environment modules (BU might use module system)
+module list
+module avail python
+module avail django
+
+# 2. Try loading Django module if available
+module load python/3.9
+module load django
+python3 manage.py migrate
+
+# 3. Check for conda/virtual environments
+which conda
+conda env list
+source activate django
+
+# 4. Check for pipenv specifically
+which pipenv
+pipenv --version
+pipenv install --dev
+pipenv shell
+python manage.py migrate
+
+# 5. Check system Python installations
+find /usr -name "django*" 2>/dev/null
+find /opt -name "django*" 2>/dev/null
+ls /usr/local/lib/python*/site-packages/ | grep django
+
+# 6. Try different Python versions/paths
+/usr/local/bin/python3.9 manage.py migrate
+/opt/python/bin/python3 manage.py migrate
+
+## Alternative: Manual Database Setup
+# If manage.py won't work, we may need to:
+# 1. Create a local database file with migrations
+# 2. Upload it to replace the server's db.sqlite3
+
+## Contact Info:
+# If none work, contact cs-help@bu.edu with this error message
