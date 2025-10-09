@@ -1,0 +1,17 @@
+# Apache configuration for Django on BU CS webserver
+
+# Serve media files (uploaded images)
+Alias /xiea/media /home/ugrad/xiea/webapps/django/media
+
+<Directory /home/ugrad/xiea/webapps/django/media>
+    Require all granted
+    Options -Indexes
+</Directory>
+
+# Serve static files (CSS, JS, admin assets)
+Alias /xiea/static /home/ugrad/xiea/webapps/django/staticfiles
+
+<Directory /home/ugrad/xiea/webapps/django/staticfiles>
+    Require all granted
+    Options -Indexes
+</Directory>

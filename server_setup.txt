@@ -33,5 +33,10 @@ python manage.py dbshell
 # 10. Test that profiles were created (should show 5)
 python manage.py shell -c "from mini_insta.models import Profile; print(f'Profiles in database: {Profile.objects.count()}')"
 
+# 11. Create media directory for uploaded images
+mkdir -p media/photos
+chmod 755 media
+chmod 755 media/photos
+
 # After these commands, wait ~5 minutes for Apache restart, then test:
 # https://cs-webapps.bu.edu/xiea/mini_insta/

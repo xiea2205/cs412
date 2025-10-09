@@ -1,0 +1,56 @@
+# Apache Configuration for Media Files
+
+## Option 1: Using .htaccess (Recommended)
+
+1. The .htaccess file has been created in the project root
+2. Copy it to the server:
+   ```
+   cd ~/webapps/django
+   git pull
+   ```
+
+3. Create the media directory:
+   ```
+   mkdir -p media/photos
+   chmod 755 media
+   chmod 755 media/photos
+   ```
+
+4. Wait ~5 minutes for Apache to pick up the changes
+
+## Option 2: Manual Apache Configuration
+
+If .htaccess doesn't work, you may need to add configuration to Apache's main config.
+
+Contact BU CS staff or add these directives to your Apache configuration:
+
+```apache
+Alias /xiea/media /home/ugrad/xiea/webapps/django/media
+
+<Directory /home/ugrad/xiea/webapps/django/media>
+    Require all granted
+    Options -Indexes
+</Directory>
+
+Alias /xiea/static /home/ugrad/xiea/webapps/django/staticfiles
+
+<Directory /home/ugrad/xiea/webapps/django/staticfiles>
+    Require all granted
+    Options -Indexes
+</Directory>
+```
+
+## Verification
+
+After setup, test that media files are accessible:
+- Upload an image through the create post form
+- Check that the image displays correctly on the profile page
+- Verify the image URL is: https://cs-webapps.bu.edu/xiea/media/photos/filename.ext
+
+## Troubleshooting
+
+If images still don't show:
+1. Check file permissions: `ls -la media/photos/`
+2. Check Apache error logs
+3. Verify MEDIA_URL in settings.py matches the Alias path
+4. Ensure DJANGO_ENV=production is set when running Django commands
