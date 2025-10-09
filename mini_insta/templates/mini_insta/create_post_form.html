@@ -15,7 +15,7 @@ Provides form for selecting profile, adding caption, and uploading photos.
     <div style="padding: 2rem;">
         <h2 style="color: #333; margin-bottom: 1.5rem; text-align: center;">Create New Post</h2>
 
-        <form method="post" id="post-form">
+        <form method="post" enctype="multipart/form-data" id="post-form">
             {% csrf_token %}
 
             <!-- Profile Selection -->
@@ -34,19 +34,14 @@ Provides form for selecting profile, adding caption, and uploading photos.
                 {{ form.caption }}
             </div>
 
-            <!-- Image URLs -->
+            <!-- Image File Upload -->
             <div style="margin-bottom: 1.5rem;">
-                <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: bold;">
-                    Image URLs:
+                <label for="image_files" style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: bold;">
+                    Upload Images:
                 </label>
-                <div id="image-urls-container">
-                    <input type="url" name="image_url" placeholder="Enter image URL"
-                           style="width: 100%; padding: 0.5rem; margin-bottom: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
-                </div>
-                <button type="button" id="add-url-btn"
-                        style="background: #3897f0; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.9rem;">
-                    + Add Another Image URL
-                </button>
+                <input type="file" name="image_files" id="image_files" multiple accept="image/*"
+                       style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
+                <small style="color: #666; display: block; margin-top: 0.25rem;">You can select multiple images at once</small>
             </div>
 
             <!-- Submit Button -->
@@ -63,18 +58,6 @@ Provides form for selecting profile, adding caption, and uploading photos.
         </form>
     </div>
 </div>
-
-<script>
-document.getElementById('add-url-btn').addEventListener('click', function() {
-    const container = document.getElementById('image-urls-container');
-    const newInput = document.createElement('input');
-    newInput.type = 'url';
-    newInput.name = 'image_url';
-    newInput.placeholder = 'Enter image URL';
-    newInput.style.cssText = 'width: 100%; padding: 0.5rem; margin-bottom: 0.5rem; border: 1px solid #ddd; border-radius: 4px;';
-    container.appendChild(newInput);
-});
-</script>
 
 <style>
     /* Style the form fields */

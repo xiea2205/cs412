@@ -57,8 +57,17 @@ class Photo(models.Model):
     Model representing a photo attached to a post.
     """
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='photos')
-    image_url = models.URLField(max_length=500)
+    image_url = models.URLField(max_length=500, blank=True)
+    image_file = models.ImageField(upload_to='photos/', blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    def get_image_url(self):
+        """
+        Return the URL for the image, prioritizing uploaded file over URL.
+        """
+        if self.image_file:
+            return self.image_file.url
+        return self.image_url
 
     def __str__(self):
         """

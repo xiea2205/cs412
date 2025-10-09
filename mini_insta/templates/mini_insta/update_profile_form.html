@@ -1,0 +1,74 @@
+<!--
+File: update_profile_form.html
+Author: Anthony Xie
+Email: xiea@bu.edu
+Description: Template for updating profile information.
+-->
+{% extends 'mini_insta/base.html' %}
+
+{% block title %}Update Profile - Mini Insta{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); overflow: hidden;">
+
+    <div style="padding: 2rem;">
+        <h2 style="color: #333; margin-bottom: 1.5rem; text-align: center;">Update Profile</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- Display Name -->
+            <div style="margin-bottom: 1.5rem;">
+                <label for="id_display_name" style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: bold;">
+                    Display Name:
+                </label>
+                {{ form.display_name }}
+            </div>
+
+            <!-- Profile Image URL -->
+            <div style="margin-bottom: 1.5rem;">
+                <label for="id_profile_image_url" style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: bold;">
+                    Profile Image URL:
+                </label>
+                {{ form.profile_image_url }}
+            </div>
+
+            <!-- Bio -->
+            <div style="margin-bottom: 1.5rem;">
+                <label for="id_bio_text" style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: bold;">
+                    Bio:
+                </label>
+                {{ form.bio_text }}
+            </div>
+
+            <!-- Submit Button -->
+            <div style="text-align: center; margin-top: 2rem;">
+                <button type="submit"
+                        style="background: #3897f0; color: white; border: none; padding: 0.75rem 2rem; border-radius: 4px; cursor: pointer; font-size: 1rem; font-weight: bold;">
+                    Update Profile
+                </button>
+                <a href="{% url 'profile' profile.pk %}"
+                   style="display: inline-block; margin-left: 1rem; padding: 0.75rem 2rem; color: #666; text-decoration: none;">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Style the form fields */
+    input[type="text"], input[type="url"], textarea {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-family: inherit;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+</style>
+{% endblock %}

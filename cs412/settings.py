@@ -122,11 +122,14 @@ import os
 if os.environ.get('DJANGO_ENV') == 'production':
     # Production deployment on BU CS servers
     STATIC_URL = '/xiea/static/'
+    MEDIA_URL = '/xiea/media/'
 else:
     # Local development
     STATIC_URL = '/static/'
+    MEDIA_URL = '/media/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
