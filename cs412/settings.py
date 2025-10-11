@@ -119,13 +119,15 @@ USE_TZ = True
 
 # Configure static URL based on environment
 import os
-import socket
 
-# Auto-detect production environment based on hostname
-hostname = socket.gethostname()
-is_production = 'cs-webapps.bu.edu' in ALLOWED_HOSTS and hostname.startswith('csa')
+# Check if BASE_DIR contains the production path or if DJANGO_ENV is set
+is_production = (
+    os.environ.get('DJANGO_ENV') == 'production' or
+    '/home/' in str(BASE_DIR) or  # BU servers use /home/ directory structure
+    'public_html' in str(BASE_DIR)
+)
 
-if os.environ.get('DJANGO_ENV') == 'production' or is_production:
+if is_production:
     # Production deployment on BU CS servers
     STATIC_URL = '/xiea/static/'
     MEDIA_URL = '/xiea/media/'
