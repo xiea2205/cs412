@@ -24,6 +24,13 @@ class Profile(models.Model):
         """
         return f"{self.username} ({self.display_name})"
 
+    def get_absolute_url(self):
+        """
+        Return the URL to access this profile.
+        """
+        from django.urls import reverse
+        return reverse('profile', kwargs={'pk': self.pk})
+
     def get_posts(self):
         """
         Return all posts for this profile, ordered by most recent first.
