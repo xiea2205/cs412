@@ -37,24 +37,32 @@ Shows profile information, bio, stats, and placeholder for posts.
         <!-- Stats Section -->
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
             <div style="text-align: center;">
-                <div style="font-size: 1.5rem; font-weight: bold; color: #333;">0</div>
+                <div style="font-size: 1.5rem; font-weight: bold; color: #333;">{{ profile.get_posts.count }}</div>
                 <div style="font-size: 0.9rem; color: #666;">Posts</div>
             </div>
             <div style="text-align: center;">
-                <div style="font-size: 1.5rem; font-weight: bold; color: #333;">0</div>
-                <div style="font-size: 0.9rem; color: #666;">Followers</div>
+                <a href="{% url 'show_followers' profile.pk %}" style="text-decoration: none; color: inherit;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #333;">{{ profile.get_num_followers }}</div>
+                    <div style="font-size: 0.9rem; color: #666;">Followers</div>
+                </a>
             </div>
             <div style="text-align: center;">
-                <div style="font-size: 1.5rem; font-weight: bold; color: #333;">0</div>
-                <div style="font-size: 0.9rem; color: #666;">Following</div>
+                <a href="{% url 'show_following' profile.pk %}" style="text-decoration: none; color: inherit;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #333;">{{ profile.get_num_following }}</div>
+                    <div style="font-size: 0.9rem; color: #666;">Following</div>
+                </a>
             </div>
         </div>
 
-        <!-- Update Profile Button -->
+        <!-- Action Buttons -->
         <div style="text-align: center; margin-top: 1rem;">
             <a href="{% url 'update_profile' profile.pk %}"
-               style="display: inline-block; background: #3897f0; color: white; padding: 0.75rem 2rem; border-radius: 4px; text-decoration: none; font-weight: bold;">
+               style="display: inline-block; background: #3897f0; color: white; padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: bold; margin: 0.25rem;">
                 Update Profile
+            </a>
+            <a href="{% url 'news_feed' profile.pk %}"
+               style="display: inline-block; background: #28a745; color: white; padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: bold; margin: 0.25rem;">
+                News Feed
             </a>
         </div>
 

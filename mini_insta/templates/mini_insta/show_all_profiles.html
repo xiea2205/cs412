@@ -37,6 +37,24 @@ Shows profile images, names, usernames, bios, and join dates with links to indiv
                         Joined {{ profile.join_date|date:"M d, Y" }}
                     </p>
                 </a>
+
+                <!-- Follow/Unfollow buttons -->
+                <div style="margin-top: 1rem;">
+                    <form method="post" action="{% url 'create_follow' profile.pk %}" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="follower_profile_pk" value="1">
+                        <button type="submit" style="background: #3897f0; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">
+                            Follow
+                        </button>
+                    </form>
+                    <form method="post" action="{% url 'unfollow' profile.pk %}" style="display: inline; margin-left: 0.5rem;">
+                        {% csrf_token %}
+                        <input type="hidden" name="follower_profile_pk" value="1">
+                        <button type="submit" style="background: #dc3545; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">
+                            Unfollow
+                        </button>
+                    </form>
+                </div>
             </div>
         {# End of profile loop #}
         {% endfor %}

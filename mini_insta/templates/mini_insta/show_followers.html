@@ -1,0 +1,48 @@
+<!--
+File: show_followers.html
+Author: Anthony Xie
+Email: xiea@bu.edu
+Description: Template to display all followers of a profile.
+-->
+{% extends 'mini_insta/base.html' %}
+
+{% block title %}{{ profile.username }}'s Followers - Mini Insta{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); overflow: hidden;">
+
+    <!-- Header -->
+    <div style="padding: 1.5rem; border-bottom: 1px solid #eee;">
+        <h2 style="margin: 0; color: #333;">Followers of {{ profile.username }}</h2>
+        <p style="margin: 0.5rem 0 0 0; color: #666;">{{ profile.get_num_followers }} follower{{ profile.get_num_followers|pluralize }}</p>
+    </div>
+
+    <!-- Followers List -->
+    <div style="padding: 1rem;">
+        {% if profile.get_followers %}
+            {% for follower in profile.get_followers %}
+                <div style="display: flex; align-items: center; padding: 1rem; border-bottom: 1px solid #eee;">
+                    <img src="{{ follower.profile_image_url }}"
+                         alt="{{ follower.username }}"
+                         style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%; margin-right: 1rem;">
+                    <div style="flex: 1;">
+                        <a href="{% url 'profile' follower.pk %}" style="color: #333; text-decoration: none; font-weight: bold; display: block;">
+                            {{ follower.username }}
+                        </a>
+                        <div style="color: #666; font-size: 0.9rem;">{{ follower.display_name }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p style="color: #999; text-align: center; padding: 2rem;">No followers yet.</p>
+        {% endif %}
+    </div>
+
+    <!-- Back Link -->
+    <div style="padding: 1rem; border-top: 1px solid #eee;">
+        <a href="{% url 'profile' profile.pk %}" style="color: #3897f0; text-decoration: none;">
+            &larr; Back to {{ profile.username }}'s profile
+        </a>
+    </div>
+</div>
+{% endblock %}
