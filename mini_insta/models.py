@@ -7,11 +7,13 @@ Contains the Profile model that represents user profiles.
 """
 
 from django.db import models
+from django.contrib.auth.models import User
 
 class Profile(models.Model):
     """
     Model representing a user profile for the mini Instagram application.
     """
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profile', null=True, blank=True)
     username = models.CharField(max_length=50, unique=True)
     display_name = models.CharField(max_length=100)
     profile_image_url = models.URLField(max_length=500)
@@ -100,6 +102,18 @@ class Post(models.Model):
         """
         return self.likes.count()
 
+    def is_liked_by(self, profile):
+        """
+        Check if a specific profile has liked this post.
+
+        Parameters:
+            profile: The Profile object to check.
+
+        Returns:
+            bool: True if the profile has liked this post, False otherwise.
+        """
+        return self.likes.filter(profile=profile).exists()
+
 
 class Photo(models.Model):
     """
@@ -141,6 +155,23 @@ class Follow(models.Model):
         Return string representation of the Follow relationship.
         """
         return f"{self.follower_profile.username} follows {self.profile.username}"
+
+    @staticmethod
+    def is_following(follower_profile, target_profile):
+        """
+        Check if follower_profile is following target_profile.
+
+        Parameters:
+            follower_profile: The Profile object that might be following.
+            target_profile: The Profile object being followed.
+
+        Returns:
+            bool: True if follower_profile is following target_profile, False otherwise.
+        """
+        return Follow.objects.filter(
+            follower_profile=follower_profile,
+            profile=target_profile
+        ).exists()
 
 
 class Comment(models.Model):

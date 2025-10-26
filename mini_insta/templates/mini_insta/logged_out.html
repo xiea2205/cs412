@@ -1,0 +1,35 @@
+<!--
+File: logged_out.html
+Author: Anthony Xie
+Email: xiea@bu.edu
+Description: Template for logout confirmation page.
+-->
+{% extends 'mini_insta/base.html' %}
+
+{% block title %}Logged Out - Mini Insta{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 3rem auto; text-align: center; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 3rem 2rem;">
+    <div style="font-size: 4rem; color: #3897f0; margin-bottom: 1rem;">
+        &#x1F44B;
+    </div>
+
+    <h2 style="color: #333; margin-bottom: 1rem;">You have been successfully logged out</h2>
+
+    <p style="color: #666; margin-bottom: 2rem; font-size: 1.1rem;">
+        Thank you for using Mini Insta! We hope to see you again soon.
+    </p>
+
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="{% url 'login' %}"
+           style="display: inline-block; background: #3897f0; color: white; padding: 0.75rem 2rem; border-radius: 4px; text-decoration: none; font-weight: bold;">
+            Log In Again
+        </a>
+
+        <a href="{% url 'show_all_profiles' %}"
+           style="display: inline-block; background: #6c757d; color: white; padding: 0.75rem 2rem; border-radius: 4px; text-decoration: none; font-weight: bold;">
+            Browse Profiles
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -61,11 +61,36 @@ Provides common layout, styling, and navigation for all pages.
     <header>
         <h1>Mini Insta</h1>
         <p>A Social Media Experience</p>
+        {% if user.is_authenticated %}
+            <p style="font-size: 0.9rem; margin-top: 0.5rem;">
+                Logged in as: <strong>{{ user.username }}</strong>
+            </p>
+        {% endif %}
     </header>
 
     <nav>
         <a href="{% url 'show_all_profiles' %}">All Profiles</a>
-        <a href="{% url 'create_post' %}">Create Post</a>
+
+        {% if user.is_authenticated %}
+            <!-- Links for authenticated users -->
+            <a href="{% url 'show_user_profile' %}">My Profile</a>
+            <a href="{% url 'create_post' %}">Create Post</a>
+            <a href="{% url 'news_feed' %}">News Feed</a>
+            <a href="{% url 'search' %}">Search</a>
+
+            <!-- Logout form (POST-based) -->
+            <form method="post" action="{% url 'logout' %}" style="display: inline; margin: 0;">
+                {% csrf_token %}
+                <button type="submit" style="background: none; border: none; color: white; cursor: pointer; padding: 0.5rem 1rem; border-radius: 4px; font-size: inherit; font-family: inherit;">
+                    Logout
+                </button>
+            </form>
+        {% else %}
+            <!-- Links for non-authenticated users -->
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'create_profile' %}">Create Account</a>
+        {% endif %}
+
         <a href="{% url 'admin:index' %}">Admin</a>
     </nav>
 

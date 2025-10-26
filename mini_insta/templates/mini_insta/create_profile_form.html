@@ -1,0 +1,152 @@
+<!--
+File: create_profile_form.html
+Author: Anthony Xie
+Email: xiea@bu.edu
+Description: Template for creating a new user profile and account.
+-->
+{% extends 'mini_insta/base.html' %}
+
+{% block title %}Create Account - Mini Insta{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 2rem auto; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 2rem;">
+    <h2 style="text-align: center; color: #333; margin-bottom: 1.5rem;">Create Your Mini Insta Account</h2>
+
+    <form method="post" action="{% url 'create_profile' %}">
+        {% csrf_token %}
+
+        <!-- User Account Section -->
+        <div style="margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 2px solid #eee;">
+            <h3 style="color: #555; margin-bottom: 1rem;">Account Credentials</h3>
+
+            {% if user_form.errors %}
+                <div style="background: #ffebee; border: 1px solid #f44336; color: #c62828; padding: 1rem; border-radius: 4px; margin-bottom: 1rem;">
+                    <strong>Account Errors:</strong>
+                    <ul style="margin: 0.5rem 0 0 1.5rem; padding: 0;">
+                        {% for field, errors in user_form.errors.items %}
+                            {% for error in errors %}
+                                <li>{{ field }}: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <div style="margin-bottom: 1rem;">
+                <label for="{{ user_form.username.id_for_label }}" style="display: block; margin-bottom: 0.5rem; color: #666; font-weight: bold;">
+                    Account Username: <span style="color: #f44336;">*</span>
+                </label>
+                {{ user_form.username }}
+                <small style="color: #999; display: block; margin-top: 0.25rem;">
+                    {{ user_form.username.help_text }}
+                </small>
+            </div>
+
+            <div style="margin-bottom: 1rem;">
+                <label for="{{ user_form.password1.id_for_label }}" style="display: block; margin-bottom: 0.5rem; color: #666; font-weight: bold;">
+                    Password: <span style="color: #f44336;">*</span>
+                </label>
+                {{ user_form.password1 }}
+                <small style="color: #999; display: block; margin-top: 0.25rem;">
+                    {{ user_form.password1.help_text }}
+                </small>
+            </div>
+
+            <div style="margin-bottom: 1rem;">
+                <label for="{{ user_form.password2.id_for_label }}" style="display: block; margin-bottom: 0.5rem; color: #666; font-weight: bold;">
+                    Confirm Password: <span style="color: #f44336;">*</span>
+                </label>
+                {{ user_form.password2 }}
+                <small style="color: #999; display: block; margin-top: 0.25rem;">
+                    {{ user_form.password2.help_text }}
+                </small>
+            </div>
+        </div>
+
+        <!-- Profile Information Section -->
+        <div style="margin-bottom: 2rem;">
+            <h3 style="color: #555; margin-bottom: 1rem;">Profile Information</h3>
+
+            {% if form.errors %}
+                <div style="background: #ffebee; border: 1px solid #f44336; color: #c62828; padding: 1rem; border-radius: 4px; margin-bottom: 1rem;">
+                    <strong>Profile Errors:</strong>
+                    <ul style="margin: 0.5rem 0 0 1.5rem; padding: 0;">
+                        {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                                <li>{{ field }}: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <div style="margin-bottom: 1rem;">
+                <label for="{{ form.username.id_for_label }}" style="display: block; margin-bottom: 0.5rem; color: #666; font-weight: bold;">
+                    Profile Username: <span style="color: #f44336;">*</span>
+                </label>
+                {{ form.username }}
+                <small style="color: #999; display: block; margin-top: 0.25rem;">
+                    This is your public username that others will see.
+                </small>
+            </div>
+
+            <div style="margin-bottom: 1rem;">
+                <label for="{{ form.display_name.id_for_label }}" style="display: block; margin-bottom: 0.5rem; color: #666; font-weight: bold;">
+                    Display Name: <span style="color: #f44336;">*</span>
+                </label>
+                {{ form.display_name }}
+            </div>
+
+            <div style="margin-bottom: 1rem;">
+                <label for="{{ form.profile_image_url.id_for_label }}" style="display: block; margin-bottom: 0.5rem; color: #666; font-weight: bold;">
+                    Profile Image URL: <span style="color: #f44336;">*</span>
+                </label>
+                {{ form.profile_image_url }}
+            </div>
+
+            <div style="margin-bottom: 1rem;">
+                <label for="{{ form.bio_text.id_for_label }}" style="display: block; margin-bottom: 0.5rem; color: #666; font-weight: bold;">
+                    Bio:
+                </label>
+                {{ form.bio_text }}
+            </div>
+        </div>
+
+        <button type="submit" style="width: 100%; background: #3897f0; color: white; padding: 0.75rem; border: none; border-radius: 4px; font-size: 1rem; font-weight: bold; cursor: pointer;">
+            Create Account
+        </button>
+    </form>
+
+    <div style="text-align: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #eee;">
+        <p style="color: #666; margin-bottom: 0.5rem;">Already have an account?</p>
+        <a href="{% url 'login' %}" style="color: #3897f0; text-decoration: none; font-weight: bold;">
+            Log In
+        </a>
+    </div>
+</div>
+
+<style>
+    input[type="text"],
+    input[type="password"],
+    textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #3897f0;
+    }
+
+    small {
+        font-size: 0.85rem;
+    }
+</style>
+{% endblock %}
