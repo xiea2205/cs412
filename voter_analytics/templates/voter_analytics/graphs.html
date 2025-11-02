@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Analytics - Graphs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+        }
+        nav {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #007bff;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .filter-form {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .filter-form label {
+            display: inline-block;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .filter-form select,
+        .filter-form input {
+            margin-right: 20px;
+            padding: 5px;
+        }
+        .filter-form button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .filter-form button:hover {
+            background-color: #0056b3;
+        }
+        .graph-container {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'voters' %}">Voters List</a>
+        <a href="{% url 'graphs' %}">Graphs</a>
+    </nav>
+
+    <h1>Voter Analytics - Graphs</h1>
+
+    <div class="filter-form">
+        <h3>Filter Data</h3>
+        <form method="GET" action="">
+            <label for="party">Party:</label>
+            <select name="party" id="party">
+                <option value="">All</option>
+                {% for p in parties %}
+                    <option value="{{ p }}" {% if p == current_party %}selected{% endif %}>{{ p }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="min_birth_year">Min Birth Year:</label>
+            <select name="min_birth_year" id="min_birth_year">
+                <option value="">All</option>
+                {% for year in birth_years %}
+                    <option value="{{ year }}" {% if year|stringformat:"s" == current_min_birth_year %}selected{% endif %}>{{ year }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="max_birth_year">Max Birth Year:</label>
+            <select name="max_birth_year" id="max_birth_year">
+                <option value="">All</option>
+                {% for year in birth_years %}
+                    <option value="{{ year }}" {% if year|stringformat:"s" == current_max_birth_year %}selected{% endif %}>{{ year }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="voter_score">Voter Score:</label>
+            <select name="voter_score" id="voter_score">
+                <option value="">All</option>
+                {% for score in voter_scores %}
+                    <option value="{{ score }}" {% if score|stringformat:"s" == current_voter_score %}selected{% endif %}>{{ score }}</option>
+                {% endfor %}
+            </select>
+
+            <br><br>
+
+            <label><input type="checkbox" name="v20state" value="on" {% if current_v20state %}checked{% endif %}> v20state</label>
+            <label><input type="checkbox" name="v21town" value="on" {% if current_v21town %}checked{% endif %}> v21town</label>
+            <label><input type="checkbox" name="v21primary" value="on" {% if current_v21primary %}checked{% endif %}> v21primary</label>
+            <label><input type="checkbox" name="v22general" value="on" {% if current_v22general %}checked{% endif %}> v22general</label>
+            <label><input type="checkbox" name="v23town" value="on" {% if current_v23town %}checked{% endif %}> v23town</label>
+
+            <br><br>
+
+            <button type="submit">Apply Filters</button>
+            <a href="{% url 'graphs' %}"><button type="button">Clear Filters</button></a>
+        </form>
+    </div>
+
+    <div class="graph-container">
+        <h2>Voter Distribution by Birth Year</h2>
+        {{ graph1|safe }}
+    </div>
+
+    <div class="graph-container">
+        <h2>Distribution by Party Affiliation</h2>
+        {{ graph2|safe }}
+    </div>
+
+    <div class="graph-container">
+        <h2>Election Participation</h2>
+        {{ graph3|safe }}
+    </div>
+</body>
+</html>

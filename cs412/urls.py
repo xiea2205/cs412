@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('quotes.urls')),
     path('', include('restaurant.urls')),
     path('mini_insta/', include('mini_insta.urls')),
+    path('voter_analytics/', include('voter_analytics.urls')),
 ]
 
 # Serve static and media files during development
